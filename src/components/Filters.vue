@@ -15,14 +15,27 @@
       </div>
       <div class='filter_type'>
         <label>TYPE</label>
-        <label v-bind:class="{ active: type === 'video' }"
-        @click="type = 'video';typeClick();">Video
-        <strong v-bind:class="{ 'close': type === 'video' }"
-        @click="type = '';typeClick();"> X </strong></label>
-        <label v-bind:class="{ active: type === 'channel' }"
-        @click="type = 'channel';typeClick();">Channel</label>
-        <label v-bind:class="{ active: type === 'playlist' }"
-        @click="type = 'playlist';typeClick();">Playlist</label>
+        <div class="filter_label">
+          <span v-bind:class="{ active: type === 'video' }"
+            @click="type = 'video';typeClick();">Video
+          </span>
+          <strong v-bind:class = "{ 'close': type === 'video' }"
+          @click="type = '';typeClick();"> X </strong>
+        </div>
+        <div class="filter_label">
+          <span v-bind:class="{ active: type === 'channel' }"
+            @click="type = 'channel';typeClick();">Channel
+          </span>
+          <strong v-bind:class="{ 'close': type === 'channel' }"
+          @click="type = '';typeClick();"> X </strong>
+        </div>
+        <div class="filter_label">
+          <span v-bind:class="{ active: type === 'playlist' }"
+            @click="type = 'playlist';typeClick();">Playlist
+          </span>
+          <strong v-bind:class="{ 'close': type === 'playlist' }"
+          @click="type = '';typeClick();"> X </strong>
+        </div>
       </div>
       <div class='filter_sort'>
         <label>SORT BY</label>
@@ -76,6 +89,8 @@ export default {
       this.$store.dispatch('fetchResults', this.search);
     },
   },
+  mounted() {
+  },
   computed: {
   },
 };
@@ -125,13 +140,6 @@ export default {
   label{
     margin: 10px 0;
     cursor:pointer;
-    strong{
-      display:none;
-    }
-    .close{
-      display: inline-block;
-      margin-left:20px;
-    }
   }
   .active{
     font-weight:bolder;
@@ -140,6 +148,22 @@ export default {
     padding: 10px 0;
     font-weight: bold;
     border-bottom: 1px solid lightgrey;
+  }
+  .filter_label{
+    margin: 10px 0;
+    span{
+      cursor: pointer;
+    }
+    strong{
+      display: none;
+      padding-left: 10px;
+      cursor: pointer;
+    }
+    .close{
+      display: inline-block;
+      margin-left:20px;
+    }
+
   }
 }
 

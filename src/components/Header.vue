@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Header',
   data() {
@@ -30,8 +31,8 @@ export default {
     },
     submit() {
       this.$router.replace({ name: 'search-results', query: { text: this.search } });
-      this.$store.dispatch('setSearch', this.search);
       this.$store.dispatch('fetchResults', this.search);
+      this.$store.dispatch('setSearch', this.search);
     },
   },
 };
@@ -42,6 +43,7 @@ export default {
 
 .header{
     position:fixed;
+    z-index: 2;
     top:0;
     left: 50%;
     transform: translate(-50%, 0);

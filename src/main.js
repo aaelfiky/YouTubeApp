@@ -5,6 +5,7 @@ import store from './store';
 import SearchResults from './components/SearchResults.vue';
 import Video from './components/Video.vue';
 import Channel from './components/Channel.vue';
+import Playlist from './components/Playlist.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,9 @@ const router = new VueRouter({
     },
     {
       path: '/channel/:channelId', name: 'channel', component: Channel, props: true,
+    },
+    {
+      path: '/playlist/:playlistId', name: 'playlist', component: Playlist, props: true,
     },
     {
       path: '/search', name: 'search-results', component: SearchResults, props: true,

@@ -1,10 +1,11 @@
 <template>
   <div class="video">
-    <youtube :video-id="this.$route.params.videoId" width="100%" height="500px"
+    <youtube :video-id="this.$store.state.playlist.items[0].snippet.resourceId.videoId"
+    width="100%" height="500px"
     ref="youtube"></youtube>
     <div class='video_details'>
-      <h2 class='video_details_title' v-if="this.$store.state.videoDetails.items">
-      {{this.$store.state.videoDetails.items[0].snippet.title}} </h2>
+      <h2 class='video_details_title' v-if="this.$store.state.playlist.items[0].snippet.title">
+      {{this.$store.state.playlist.items[0].snippet.title}} </h2>
     </div>
     <SearchResults/>
   </div>
@@ -14,7 +15,7 @@
 import SearchResults from './SearchResults.vue';
 
 export default {
-  name: 'Video',
+  name: 'Playlist',
   components: {
     SearchResults,
   },
@@ -25,12 +26,9 @@ export default {
     channel: String,
   },
   mounted() {
-    this.$store.dispatch('getRelated', this.$route.params.videoId);
-    this.$store.dispatch('getVideoDetails', this.$route.params.videoId);
+    // this.$store.dispatch('getPlaylist', this.playlistId);
   },
   updated() {
-    // this.$store.dispatch('getRelated', this.$route.params.videoId);
-    // this.$store.dispatch('getVideoDetails', this.$route.params.videoId);
   },
 };
 </script>

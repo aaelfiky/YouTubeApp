@@ -1,11 +1,15 @@
 <template>
-  <div class="result" @click="handleClick">
+  <div class="result" @click="submit">
     <img class='result_thumbnail' :src="`${image}`"/>
     <div class='result_details'>
-        <router-link v-if="videoId" class='result_details_title'
-         :to="{path: `/video/${videoId}`}"> {{title}} </router-link>
+        <h2 v-if="videoId" class='result_details_title'
+         > {{title}} </h2>
+         <h2 v-if="playlistId" class='result_details_title'
+         > {{title}} </h2>
         <router-link v-if="channelId" class='result_details_title'
          :to="`/channel/${channelId}`"> {{title}} </router-link>
+         <h2 v-if="this.$store.state.play" class='result_details_title'
+         > {{title}} </h2>
         <a class='result_details_channel' href='https://www.youtube.com'> {{channel}}</a>
         <p class='result_details_desc'> {{desc}} </p>
     </div>
@@ -21,18 +25,23 @@ export default {
     title: String,
     videoId: String,
     channelId: String,
+    playlistId: String,
     channel: String,
   },
   methods: {
-    handleClick() {
-      return this.submit();
-    },
     submit() {
       if (this.videoId) {
         this.$router.replace({ name: 'video', params: { videoId: this.videoId } });
+        this.$store.dispatch('getVideoDetails', this.$route.params.videoId);
         this.$store.dispatch('getRelated', this.videoId);
+      } else if (this.channelId) {
+        this.$router.replace({ name: 'channel', params: { channelId: this.channelId } });
+        this.$store.dispatch('getRelatedChannel', this.channelId);
+        this.$store.dispatch('getChannelDetails', this.$route.params.channelId);
       } else {
-        this.$store.dispatch('getRelated', this.channelId);
+        this.$store.dispatch('getPlaylist', this.playlistId);
+        this.$router.replace({ name: 'playlist', params: { playlistId: this.playlistId } });
+        // this.$store.dispatch('getRelated', this.videoId);
       }
     },
   },
@@ -47,7 +56,7 @@ export default {
     display: flex;
     flex-direction: row;
     margin: 10px auto;
-    text-align:  center;
+  text-align:  center;
     align-items: center;
     padding: 0 5px;
     .result_thumbnail{

@@ -10,8 +10,29 @@ import Header from './components/Header.vue';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      scrolledToBottom: false,
+    };
+  },
   components: {
     Header,
+  },
+  methods: {
+    scroll() {
+      window.onscroll = () => {
+        const bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop,
+          document.body.scrollTop)
+          + window.innerHeight === document.documentElement.offsetHeight;
+
+        if (bottomOfWindow) {
+          this.scrolledToBottom = true; // replace it with your code
+        }
+      };
+    },
+  },
+  mounted() {
+    this.scroll();
   },
 };
 
