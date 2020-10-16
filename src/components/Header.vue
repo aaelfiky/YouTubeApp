@@ -1,9 +1,9 @@
 <template>
   <div class="header">
-    <img class='header_logo' src="../assets/yt.png"/>
-    <input v-model="search"
-    v-on:keyup="enterSearch"
-    class='header_input' type='text' placeholder='Search' name='search'/>
+    <img v-if="!isMobile()" class='header_logo' src="../assets/yt.png"/>
+    <img v-if="isMobile()" class='header_logo' src="../assets/yt-mob-2.png"/>
+    <input v-model="search" v-on:keyup="enterSearch"
+    class='header_input' type='text' placeholder='YouTube' name='search'/>
     <button class='header_button' @click="handleClick"></button>
   </div>
 </template>
@@ -21,6 +21,12 @@ export default {
     logo: String,
   },
   methods: {
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+      }
+      return false;
+    },
     enterSearch(e) {
       if (e.keyCode === 13) {
         this.submit();
@@ -40,8 +46,49 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .header{
+  position:relative;
+  display:flex;
+  background-color: red;
+  width:100%;
+  height: 65px;
+  .header_logo{
+    width:60px;
+    height:60px;
+    padding:0 20px;
+    float:left;
+  }
+  ::placeholder {
+    color: white;
+    font-size: 13px;
+  }
+  .header_input{
+    width: 55%;
+    background-color: transparent;
+    border:none;
+    color:white;
+    &:focus{
+      outline:none;
+    }
+  }
+  .header_button{
+    padding: 14px 14px;
+    background-size: 20px auto;
+    margin-left:-5px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../assets/search-2.png');
+    background-color: transparent;
+    border:0;
+    &:focus{
+      outline: none;
+    }
+  }
+}
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+@media (min-width: $breakpoint-desktop) {
+  .header{
     position:fixed;
     z-index: 2;
     top:0;
@@ -55,19 +102,26 @@ export default {
     text-align:  center;
     align-items: center;
     border-bottom: 1px solid lightgrey;
+    ::placeholder {
+      color: grey;
+      font-size: 16px;
+    }
     .header_logo{
         padding:0 30px;
+        width:170px;
+        height:50px;
+        float:none;
     }
     .header_input{
         width: 100%;
-        padding: 8px 8px;
+        padding: 10px 10px;
+        color:grey;
+        border: 1px solid lightgrey;
     }
     .header_button{
-        padding: 17px 17px;
+        padding: 18px 18px;
         background-size: 15px auto;
-        margin-left:-5px;
-        background-position: center center;
-        background-repeat: no-repeat;
+        background-color: #d4d4d4;
         background-image: url('../assets/search.png');
         border: 1px solid grey;
         &:focus{
@@ -75,13 +129,6 @@ export default {
         }
     }
 }
-
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 1024px;
-@media (min-width: $breakpoint-tablet) {
-  h1{
-      font-size: 20px;
-  }
 }
 
 </style>

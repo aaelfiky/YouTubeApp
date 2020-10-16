@@ -1,29 +1,58 @@
 <template>
   <div class="video">
-    <youtube :video-id="this.$store.state.playlist.items[0].snippet.resourceId.videoId"
+    <youtube :video-id="this.$store.state.videoId"
     width="100%" height="500px"
     ref="youtube"></youtube>
     <div class='video_details'>
-      <h2 class='video_details_title' v-if="this.$store.state.playlist.items[0].snippet.title">
+      <h2 class='video_details_title' v-if="!this.newDetails">
       {{this.$store.state.playlist.items[0].snippet.title}} </h2>
+      <h2 class='video_details_title' v-else-if="this.$store.state.videoDetails.items">
+      {{this.$store.state.videoDetails.items[0].snippet.title}}  </h2>
+      <div class='video_stats'>
+        <label class='views' v-if="this.$store.state.videoDetails.items">
+          {{this.$store.state.videoDetails.items[0].statistics.viewCount}} views •
+          {{this.$store.state.videoDetails.items[0].snippet.publishedAt}}
+        </label>
+        <label class='likes' v-if="this.$store.state.videoDetails.items">
+          <img class='video_like' src="../assets/like.png"/>
+          {{this.$store.state.videoDetails.items[0].statistics.likeCount}}
+          <img class='video_like' src="../assets/dislike.png"/>
+          {{this.$store.state.videoDetails.items[0].statistics.dislikeCount}}
+        </label>
+      </div>
     </div>
-    <SearchResults/>
+    <VideoPlaylist v-bind:playlistId='this.$store.state.playlist.id'/>
   </div>
 </template>
 
 <script>
-import SearchResults from './SearchResults.vue';
+import { mapState } from 'vuex';
+import VideoPlaylist from './VideoPlaylist.vue';
 
 export default {
   name: 'Playlist',
   components: {
-    SearchResults,
+    VideoPlaylist,
+  },
+  data() {
+    return {
+      newDetails: false,
+    };
   },
   props: {
     desc: String,
     image: String,
     title: String,
     channel: String,
+    videoId: String,
+  },
+  computed: mapState(['videoId']),
+  watch: {
+    videoId(newValue, oldValue) {
+      console.log(`Updating from ${oldValue} to ${newValue}`);
+      // Do whatever makes sense now
+      this.newDetails = true;
+    },
   },
   mounted() {
     // this.$store.dispatch('getPlaylist', this.playlistId);
@@ -44,12 +73,12 @@ export default {
     }
     .video_details{
       flex:2;
-      height: 200px;
       display:flex;
       flex-direction:column;
       align-items: flex-start;
       text-align: left;
-      padding: 0 10px;
+      padding: 20px 10px;
+      border-bottom: 1px solid lightgrey;
       > *{
         text-decoration: none;
         font-family: verdana;
@@ -58,20 +87,53 @@ export default {
       .video_details_title{
         text-align: left;
         font-size: 18px;
+        font-weight: bold;
         color: black;
         margin-bottom: 10px;
       }
+      .video_stats{
+        display:inline-block;
+        width:100%;
+        padding: 20px 0;
+        .views{
+          float: left;
+          padding: 10px 0;
+        }
+        .likes{
+          float: right;
+          display:flex;
+          align-items:center;
+        }
+      }
       .result_details_channel{
         font-size: 12px;
+      }
+      .video_like{
+        width:20px;
+        margin: 0 10px;
       }
     }
 }
 
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1024px;
-@media (min-width: $breakpoint-tablet) {
-  h1{
-      font-size: 20px;
+@media (min-width: $breakpoint-desktop) {
+  .video{
+    margin: 10px auto;
+    padding: 80px 5px 0 5px;
+    .video_details{
+      padding: 20px 10px;
+      .video_details_title{
+        font-size: 18px;
+      }
+      .video_stats{
+        display:inline-block;
+        width:100%;
+        .likes{
+          float: right;
+        }
+      }
+    }
   }
 }
 

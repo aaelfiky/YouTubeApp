@@ -1,36 +1,25 @@
 <template>
-  <div class="video">
-    <youtube v-if="isMobile()" :video-id="this.$route.params.videoId" width="100%" height="300px"
-    ref="youtube"></youtube>
-    <youtube v-else :video-id="this.$route.params.videoId" width="100%" height="500px"
-    ref="youtube"></youtube>
-    <div class='video_details'>
-      <h2 class='video_details_title' v-if="this.$store.state.videoDetails.items">
-      {{this.$store.state.videoDetails.items[0].snippet.title}} </h2>
-      <div class='video_stats'>
-        <label class='views' v-if="this.$store.state.videoDetails.items">
-          {{this.$store.state.videoDetails.items[0].statistics.viewCount}} views •
-          {{this.$store.state.videoDetails.items[0].snippet.publishedAt}}
-        </label>
-        <label class='likes' v-if="this.$store.state.videoDetails.items">
-          <img class='video_like' src="../assets/like.png"/>
-          {{this.$store.state.videoDetails.items[0].statistics.likeCount}}
-          <img class='video_like' src="../assets/dislike.png"/>
-          {{this.$store.state.videoDetails.items[0].statistics.dislikeCount}}
-        </label>
+  <div class="main">
+    <div class='results'>
+      <div v-for="item in this.$store.state.playlist.items" :key="item.eTag">
+          <SearchResult v-bind:desc="item.snippet.description"
+          v-bind:image="item.snippet.thumbnails.high.url"
+          v-bind:title="item.snippet.title"
+          v-bind:playlist="true"
+          v-bind:videoId="item.snippet.resourceId.videoId"
+          v-bind:channel="item.snippet.channelTitle"/>
       </div>
     </div>
-    <SearchResults/>
   </div>
 </template>
 
 <script>
-import SearchResults from './SearchResults.vue';
+import SearchResult from './SearchResult.vue';
 
 export default {
-  name: 'Video',
+  name: 'VideoPlaylist',
   components: {
-    SearchResults,
+    SearchResult,
   },
   props: {
     desc: String,
@@ -47,12 +36,8 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('getRelated', this.$route.params.videoId);
-    this.$store.dispatch('getVideoDetails', this.$route.params.videoId);
   },
   updated() {
-    // this.$store.dispatch('getRelated', this.$route.params.videoId);
-    // this.$store.dispatch('getVideoDetails', this.$route.params.videoId);
   },
 };
 </script>
@@ -122,7 +107,6 @@ $breakpoint-desktop: 1024px;
       }
       .video_stats{
         display:inline-block;
-        width:100%;
         .likes{
           float: right;
         }

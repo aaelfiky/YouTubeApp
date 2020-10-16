@@ -1,85 +1,24 @@
 <template>
 <div class='filter'>
-  <div class="filter_header">
-    <span class='filter_results'>About {{ number }} Results Found</span>
-    <img class='filter_logo' @click="handleClick" src="../assets/filter.png"/>
-  </div>
-  <div v-bind:class="{ 'filters': filterToggle }">
-    <div class='filter_options'>
-      <div class='filter_date'>
-        <label>UPLOAD DATE</label>
-        <div class="filter_label">
-          <span v-bind:class="{ active: date === 'hour' }"
-            @click="date = 'hour';dateClick();">Last Hour
-          </span>
-          <strong v-bind:class = "{ 'close': date === 'hour' }"
-          @click="date = '';dateClick();"> X </strong>
-        </div>
-        <div class="filter_label">
-          <span v-bind:class="{ active: date === 'today' }"
-            @click="date = 'today';dateClick();">Today
-          </span>
-          <strong v-bind:class = "{ 'close': date === 'today' }"
-          @click="date = '';dateClick();"> X </strong>
-        </div>
-        <div class="filter_label">
-          <span v-bind:class="{ active: date === 'week' }"
-            @click="date = 'week';dateClick();">This Week
-          </span>
-          <strong v-bind:class = "{ 'close': date === 'week' }"
-          @click="date = '';dateClick();"> X </strong>
-        </div>
-        <div class="filter_label">
-          <span v-bind:class="{ active: date === 'month' }"
-            @click="date = 'month';dateClick();">This Month
-          </span>
-          <strong v-bind:class = "{ 'close': date === 'month' }"
-          @click="date = '';dateClick();"> X </strong>
-        </div>
-      </div>
-      <div class='filter_type'>
-        <label>TYPE</label>
-        <div class="filter_label">
-          <span v-bind:class="{ active: type === 'video' }"
-            @click="type = 'video';typeClick();">Video
-          </span>
-          <strong v-bind:class = "{ 'close': type === 'video' }"
-          @click="type = '';typeClick();"> X </strong>
-        </div>
-        <div class="filter_label">
-          <span v-bind:class="{ active: type === 'channel' }"
-            @click="type = 'channel';typeClick();">Channel
-          </span>
-          <strong v-bind:class="{ 'close': type === 'channel' }"
-          @click="type = '';typeClick();"> X </strong>
-        </div>
-        <div class="filter_label">
-          <span v-bind:class="{ active: type === 'playlist' }"
-            @click="type = 'playlist';typeClick();">Playlist
-          </span>
-          <strong v-bind:class="{ 'close': type === 'playlist' }"
-          @click="type = '';typeClick();"> X </strong>
-        </div>
-      </div>
-      <div class='filter_sort'>
-        <label>SORT BY</label>
-        <label v-bind:class="{ active: order === 'relevance' }"
-        @click="order = 'relevance';sortClick();">Relevance</label>
-        <label v-bind:class="{ active: order === 'date' }"
-        @click="order = 'date';sortClick();">Upload Date</label>
-        <label v-bind:class="{ active: order === 'viewCount' }"
-        @click="order = 'viewCount';sortClick();">View Count</label>
-        <label v-bind:class="{ active: order === 'rating' }"
-        @click="order = 'rating';sortClick();">Rating</label>
-      </div>
-    </div>
-  </div>
+  <select name="type" @change="onChangeType($event)" class="form-control" v-model="type">
+    <option value="">All</option>
+    <option value="video">Video</option>
+    <option value="channel">Channel</option>
+    <option value="playlist">Playlist</option>
+  </select>
+  <select name="date" @change="onChange($event)" class="form-control" v-model="date">
+    <option value="">Any Time</option>
+    <option value="hour">Last hour</option>
+    <option value="today">Today</option>
+    <option value="week">Last Week</option>
+    <option value="month">Last Month</option>
+  </select>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'Filters',
+  name: 'FiltersMobile',
   data() {
     return {
       search: '',
@@ -99,6 +38,42 @@ export default {
         return true;
       }
       return false;
+    },
+    onChange(event) {
+      console.log(event.target.value);
+      const dateNow = new Date();
+      // const hour = 1000 * 60 * 60;
+      const anHourAgo = new Date(dateNow.getTime() - (1000 * 60 * 60));
+      // const dateNow_f = dateNow.toISOString();
+      switch (event.target.value) {
+        case 'hour':
+          // code block
+          this.$store.dispatch('fetchResultsDate', { search: this.$store.state.search, date: anHourAgo.toISOString(), order: 'relevance' });
+          break;
+        case 'today':
+          // code block
+          dateNow.setDate(dateNow.getDate() - 1);
+          this.$store.dispatch('fetchResultsDate', { search: this.$store.state.search, date: dateNow.toISOString(), order: 'relevance' });
+          break;
+        case 'week':
+          // code block
+          dateNow.setDate(dateNow.getDate() - 7);
+          this.$store.dispatch('fetchResultsDate', { search: this.$store.state.search, date: dateNow.toISOString(), order: 'relevance' });
+          break;
+        case 'month':
+          // code block
+          dateNow.setDate(dateNow.getDate() - 30);
+          this.$store.dispatch('fetchResultsDate', { search: this.$store.state.search, date: dateNow.toISOString(), order: 'relevance' });
+          break;
+        default:
+          // code block
+          this.$store.dispatch('fetchResultsOrdered', { search: this.$store.state.search, order: 'relevance' });
+          break;
+      }
+    },
+    onChangeType(event) {
+      console.log(event.target.value);
+      this.$store.dispatch('fetchResultsType', { search: this.$store.state.search, type: event.target.value, order: 'relevance' });
     },
     enterSearch(e) {
       if (e.keyCode === 13) {
@@ -160,7 +135,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-// .filter,
+.filter{
+  display: flex;
+  select{
+    padding:10px 20px;
+    margin: 10px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+  }
+}
 .filter_header{
     background-color: white;
     display:flex;

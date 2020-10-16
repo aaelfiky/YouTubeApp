@@ -1,8 +1,10 @@
 <template>
   <div class='main'>
-    <vue-topprogress ref="topProgress" color='red'></vue-topprogress>
     <div v-bind:class="{ 'no-display': route !== 'search-results' }">
-      <Filters v-if="Object.keys(this.$store.state.searchResults).length > 0"
+      <FiltersMobile v-if="isMobile() &&
+      Object.keys(this.$store.state.searchResults).length > 0"
+      v-bind:number="this.$store.state.searchResults.pageInfo.totalResults"/>
+      <Filters v-if="!isMobile() && Object.keys(this.$store.state.searchResults).length > 0"
       v-bind:number="this.$store.state.searchResults.pageInfo.totalResults"/>
     </div>
     <div v-if="!this.$store.state.play" class='results'>
@@ -15,35 +17,40 @@
         v-bind:playlistId="item.id.playlistId"
         v-bind:channel="item.snippet.channelTitle"/>
       </div>
+      <!-- <infinite-loading @infinite="infiniteHandler"></infinite-loading> -->
     </div>
-    <div v-if="this.$store.state.play" class='results'>
+    <div v-else class='results'>
       <div v-for="item in this.$store.state.playlist.items" :key="item.eTag">
           <SearchResult v-bind:desc="item.snippet.description"
           v-bind:image="item.snippet.thumbnails.high.url"
           v-bind:title="item.snippet.title"
           v-bind:videoId="item.id.videoId"
           v-bind:channelId="item.id.channelId"
-          v-bind:playlistId="item.id.playlistId"
+          v-bind:playlistId="playlistId"
           v-bind:channel="item.snippet.channelTitle"/>
-        </div>
       </div>
+      <!-- <infinite-loading @infinite="infiniteHandler"></infinite-loading> -->
+    </div>
   </div>
 </template>
 
 <script>
-import { vueTopprogress } from 'vue-top-progress';
+// import InfiniteLoading from 'vue-infinite-loading';
 import SearchResult from './SearchResult.vue';
 import Filters from './Filters.vue';
+import FiltersMobile from './FiltersMobile.vue';
 
 export default {
   name: 'SearchResults',
   components: {
+    // InfiniteLoading,
     SearchResult,
     Filters,
-    vueTopprogress,
+    FiltersMobile,
   },
   props: {
     filter: Boolean,
+    playlistId: String,
   },
   data() {
     return {
@@ -54,14 +61,20 @@ export default {
     };
   },
   methods: {
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+      }
+      return false;
+    },
   },
   mounted() {
   },
   beforeUpdate() {
-    this.$refs.topProgress.start();
+    // this.$refs.topProgress.start();
   },
   updated() {
-    this.$refs.topProgress.done();
+    // this.$refs.topProgress.done();
   },
 
 };

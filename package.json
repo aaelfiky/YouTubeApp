@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "moment": "^2.29.1",
     "vue": "^2.6.11",
+    "vue-infinite-loading": "^2.4.5",
     "vue-router": "^3.4.6",
     "vue-top-progress": "^0.7.0",
     "vue-youtube": "^1.4.0",

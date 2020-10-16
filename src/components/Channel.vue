@@ -7,9 +7,9 @@
     v-bind:src="`${this.$store.state.channelDetails.items[0].
     snippet.thumbnails.default.url}`"/>
     <div class='channel_details'>
-        <a class='result_details_title' href="https://www.youtube.com">
+        <label class='result_details_title'>
         {{this.$store.state.channelDetails.items[0].
-    snippet.title}} </a>
+    snippet.title}} </label>
         <span class='result_details_channel'> {{this.$store.state.channelDetails.items[0].
     statistics.subscriberCount}} Subscribers</span>
         <p class='result_details_desc'> {{desc}} </p>
@@ -33,6 +33,14 @@ export default {
     title: String,
     channel: String,
   },
+  methods: {
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+      }
+      return false;
+    },
+  },
 };
 </script>
 
@@ -44,16 +52,14 @@ export default {
     display:flex;
     flex-direction:column;
     width: 100%;
-    margin: 10px auto;
-    // align-items: center;
-    padding: 80px 5px 0 5px;
+    margin: 0 auto;
     .channel_banner{
       position: relative;
-      height: 175px;
+      height: 155px;
     }
     .channel_thumbnail{
       position: absolute;
-      top:220px;
+      top:110px;
       left:50px;
       width: 90px;
       height: 90px;
@@ -87,9 +93,17 @@ export default {
 
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1024px;
-@media (min-width: $breakpoint-tablet) {
-  h1{
-      font-size: 20px;
+@media (min-width: $breakpoint-desktop) {
+  .channel{
+    margin: 10px auto;
+    padding: 80px 5px 0 5px;
+    .channel_banner{
+      height: 175px;
+    }
+    .channel_thumbnail{
+      position: absolute;
+      top:220px;
+    }
   }
 }
 
