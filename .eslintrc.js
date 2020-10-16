@@ -13,7 +13,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    "eslint linebreak-style": ["error", process.env.NODE_ENV === 'prod' ? "unix" : "windows"],
+    "linebreak-style": 0
   },
   overrides: [
     {
