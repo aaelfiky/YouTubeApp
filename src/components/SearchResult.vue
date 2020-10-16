@@ -85,7 +85,7 @@ export default {
       display: block;
       position: absolute;
       width: 65px;
-      height: 98%;
+      height: 96%;
       top: 0;
       right: 0;
       bottom: 0;

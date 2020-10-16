@@ -91,7 +91,7 @@ export default {
       display: none;
     }
     > .results{
-      padding-top: 40px;
+      padding-top: 20px;
       // background-color: #F9F9F9;
     }
   }

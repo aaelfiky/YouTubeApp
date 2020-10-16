@@ -60,7 +60,7 @@ export default {
   }
   ::placeholder {
     color: white;
-    font-size: 13px;
+    font-size: 16px;
   }
   .header_input{
     width: 55%;
