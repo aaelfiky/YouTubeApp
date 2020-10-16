@@ -1,12 +1,15 @@
 <template>
   <div class="result" @click="submit">
     <div class='result_image'>
-    <img v-if='channelId' class='result_thumbnail_channel' :src="`${image}`"/>
+    <img v-if='kind === "youtube#channel" ' class='result_thumbnail_channel' :src="`${image}`"/>
+    <img v-else-if='kind === "youtube#video"' class='result_thumbnail' :src="`${image}`"/>
     <img v-else class='result_thumbnail' :src="`${image}`"/>
+    <div v-if='kind === "youtube#playlist"' class='result_overlay'/>
+    <img v-if='kind === "youtube#playlist"' class='result_overlay_icon' src="../assets/list-2.png"/>
     </div>
     <div class='result_details'>
         <h2 class='result_details_title'> {{title}} </h2>
-        <a class='result_details_channel' href='https://www.youtube.com'> {{channel}}</a>
+        <a class='result_details_channel'> {{channel}}</a>
         <p class='result_details_desc'> {{desc}} </p>
     </div>
   </div>
@@ -24,6 +27,7 @@ export default {
     playlistId: String,
     playlist: Boolean,
     channel: String,
+    kind: String,
   },
   methods: {
     submit() {
@@ -63,6 +67,7 @@ export default {
     padding: 0 5px;
     .result_image{
       flex: 1;
+      position: relative;
       height: 100%;
     }
     .result_thumbnail{
@@ -75,6 +80,31 @@ export default {
       height: 150px;
       border-radius: 50%;
       object-fit: cover;
+    }
+    .result_overlay{
+      display: block;
+      position: absolute;
+      width: 65px;
+      height: 98%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1;
+      cursor: pointer;
+    }
+    .result_overlay_icon{
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      transform: translate(0, -55%);
+      right: 20px;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1;
+      cursor: pointer;
     }
     .result_details{
       flex:2.5;
@@ -114,6 +144,18 @@ $breakpoint-desktop: 1024px;
     .result_thumbnail{
       width: 300px;
       height: 200px;
+    }
+    .result_overlay{
+      width: 100px;
+      height: 98%;
+      top: 0;
+      right: 23px;
+    }
+    .result_overlay_icon{
+      width: 25px;
+      height: 25px;
+      top: 50%;
+      right: 45px;
     }
     .result_details{
       flex:2;

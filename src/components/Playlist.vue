@@ -1,7 +1,8 @@
 <template>
   <div class="video">
-    <youtube :video-id="this.$store.state.videoId"
-    width="100%" height="500px"
+    <youtube v-if="isMobile()" :video-id="this.$store.state.videoId"
+    width="100%" height="300px" ref="youtube"></youtube>
+    <youtube v-else :video-id="this.$store.state.videoId" width="100%" height="500px"
     ref="youtube"></youtube>
     <div class='video_details'>
       <h2 class='video_details_title' v-if="!this.newDetails">
@@ -39,6 +40,14 @@ export default {
       newDetails: false,
     };
   },
+  methods: {
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+      }
+      return false;
+    },
+  },
   props: {
     desc: String,
     image: String,
@@ -66,8 +75,6 @@ export default {
 <style scoped lang="scss">
 
 .video{
-    margin: 10px auto;
-    padding: 80px 5px 0 5px;
     .iframe{
       margin: 0 auto;
     }
@@ -100,7 +107,7 @@ export default {
           padding: 10px 0;
         }
         .likes{
-          float: right;
+          float: left;
           display:flex;
           align-items:center;
         }

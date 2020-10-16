@@ -12,6 +12,7 @@
         <SearchResult v-bind:desc="item.snippet.description"
         v-bind:image="item.snippet.thumbnails.high.url"
         v-bind:title="item.snippet.title"
+        v-bind:kind="item.id.kind"
         v-bind:videoId="item.id.videoId"
         v-bind:channelId="item.id.channelId"
         v-bind:playlistId="item.id.playlistId"
@@ -25,6 +26,7 @@
           v-bind:image="item.snippet.thumbnails.high.url"
           v-bind:title="item.snippet.title"
           v-bind:videoId="item.id.videoId"
+          v-bind:kind="item.id.kind"
           v-bind:channelId="item.id.channelId"
           v-bind:playlistId="playlistId"
           v-bind:channel="item.snippet.channelTitle"/>
