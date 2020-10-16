@@ -57,7 +57,7 @@ export default new Vuex.Store({
   actions: {
     getVideoDetails({ commit }, videoId) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,status&id=${videoId}&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,status&id=${videoId}&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -76,7 +76,7 @@ export default new Vuex.Store({
     },
     getPlaylist({ commit }, playlistId) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=15&playlistId=${playlistId}&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=15&playlistId=${playlistId}&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -87,7 +87,7 @@ export default new Vuex.Store({
     },
     getChannelDetails({ commit }, channelId) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/channels?part=brandingSettings,snippet,statistics&id=${channelId}&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/channels?part=brandingSettings,snippet,statistics&id=${channelId}&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -107,7 +107,7 @@ export default new Vuex.Store({
     },
     loadMore({ commit, getters }, nextPage) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?pageToken=${nextPage}&part=snippet&q=${getters.getSearchQuery}&maxResults=15&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?pageToken=${nextPage}&part=snippet&q=${getters.getSearchQuery}&maxResults=15&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -118,7 +118,7 @@ export default new Vuex.Store({
     },
     fetchResultsOrdered({ commit }, { search, order }) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&order=${order}&maxResults=15&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&order=${order}&maxResults=15&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -129,7 +129,7 @@ export default new Vuex.Store({
     },
     fetchResultsType({ commit }, { search, type, order }) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&order=${order}&type=${type}&maxResults=15&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&order=${order}&type=${type}&maxResults=15&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -140,7 +140,7 @@ export default new Vuex.Store({
     },
     fetchResultsDate({ commit }, { search, date, order }) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&order=${order}&publishedAfter=${date}&maxResults=15&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&order=${order}&publishedAfter=${date}&maxResults=15&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -151,7 +151,7 @@ export default new Vuex.Store({
     },
     getRelated({ commit }, videoId) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=15&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=15&key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {
@@ -162,7 +162,7 @@ export default new Vuex.Store({
     },
     getRelatedChannel({ commit }, channelId) {
       commit('SET_LOADING_STATUS', 'loading');
-      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4&channelId=${channelId}&part=snippet,id&order=date&maxResults=20`);
+      const myRequest = new Request(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyAIpBClijIAQ9MXxe1sUcipCC7XSxQqkCE&channelId=${channelId}&part=snippet,id&order=date&maxResults=20`);
       fetch(myRequest)
         .then((response) => (response.json()))
         .then((data) => {

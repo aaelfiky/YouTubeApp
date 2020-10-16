@@ -9,6 +9,8 @@ npm install
 ```
 npm run serve
 ```
+- Open Browser and copy and paste the following URL: http://localhost:8080/
+- Start Searching
 
 ### Compiles and minifies for production
 ```
