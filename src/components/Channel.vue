@@ -70,7 +70,7 @@ export default {
     }
     .channel_details{
       flex:2;
-      height: 200px;
+      height: 80px;
       display:flex;
       margin-top:80px;
       flex-direction:column;
@@ -105,6 +105,9 @@ $breakpoint-desktop: 1024px;
     .channel_thumbnail{
       position: absolute;
       top:220px;
+    }
+    .channel_details{
+      height: 200px;
     }
   }
 }
