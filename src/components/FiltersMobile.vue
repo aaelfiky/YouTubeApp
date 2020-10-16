@@ -142,6 +142,7 @@ export default {
     margin: 10px;
     background-color: whitesmoke;
     border-radius: 5px;
+    -webkit-appearance: none;
   }
 }
 .filter_header{
