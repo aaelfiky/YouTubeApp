@@ -2,7 +2,7 @@
 <div class='filter'>
   <div class="filter_header">
     <span class='filter_results'>About {{ number }} Results Found</span>
-    <img class='filter_logo' @click="handleClick" src="../assets/filter.png"/>
+    <img class='filter_logo' @click="handleClick" src="../assets/filter-2.png"/>
   </div>
   <div v-bind:class="{ 'filters': filterToggle }">
     <div class='filter_options'>
@@ -113,9 +113,7 @@ export default {
     },
     dateClick() {
       const dateNow = new Date();
-      // const hour = 1000 * 60 * 60;
       const anHourAgo = new Date(dateNow.getTime() - (1000 * 60 * 60));
-      // const dateNow_f = dateNow.toISOString();
       switch (this.date) {
         case 'hour':
           // code block
@@ -146,7 +144,6 @@ export default {
       this.filterToggle = !this.filterToggle;
     },
     submit() {
-      // this.$router.push({ name: 'search-results', query: { text: this.search } });
       this.$store.dispatch('setSearch', this.search);
       this.$store.dispatch('fetchResults', this.search);
     },

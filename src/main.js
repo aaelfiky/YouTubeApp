@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import vueTopprogress from 'vue-top-progress';
+import VueYoutube from 'vue-youtube';
 import App from './App.vue';
 import store from './store';
 import SearchResults from './components/SearchResults.vue';
@@ -8,6 +10,8 @@ import Channel from './components/Channel.vue';
 import Playlist from './components/Playlist.vue';
 
 Vue.use(VueRouter);
+Vue.use(vueTopprogress);
+Vue.use(VueYoutube);
 
 const router = new VueRouter({
   routes: [
@@ -23,7 +27,9 @@ const router = new VueRouter({
     {
       path: '/search', name: 'search-results', component: SearchResults, props: true,
     },
-    // { path: '/', component: SearchResults },
+    {
+      path: '/', name: 'home', props: true,
+    },
   ],
 });
 

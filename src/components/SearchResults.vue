@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      search: '',
+      search: this.$route.query.text,
       route: this.$route.name,
       // filter: true,
       results: this.$store.state.searchResults.items,
@@ -69,16 +69,26 @@ export default {
       }
       return false;
     },
+    getResults(value) {
+      this.$store.dispatch('fetchResults', value);
+      this.$store.dispatch('setSearch', value);
+    },
   },
   mounted() {
+    if (this.route === 'search-results') {
+      this.getResults(this.search);
+      console.log(this.$store.getters.getSearchResults.kind);
+    }
   },
-  beforeUpdate() {
-    // this.$refs.topProgress.start();
+  watch: {
+    $route(to) {
+      if (to) {
+        console.log(this.$store.getters.getSearchResults.kind);
+        this.search = to.query.text;
+        this.getResults(to.query.text);
+      }
+    },
   },
-  updated() {
-    // this.$refs.topProgress.done();
-  },
-
 };
 </script>
 

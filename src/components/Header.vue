@@ -37,8 +37,7 @@ export default {
     },
     submit() {
       this.$router.replace({ name: 'search-results', query: { text: this.search } });
-      this.$store.dispatch('fetchResults', this.search);
-      this.$store.dispatch('setSearch', this.search);
+      // this.$store.dispatch('fetchResults', this.search);
     },
   },
 };
@@ -46,6 +45,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+$breakpoint-desktop: 1024px;
 .header{
   position:relative;
   display:flex;
@@ -85,8 +85,6 @@ export default {
     }
   }
 }
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 1024px;
 @media (min-width: $breakpoint-desktop) {
   .header{
     position:fixed;
@@ -128,7 +126,7 @@ $breakpoint-desktop: 1024px;
           outline: none;
         }
     }
-}
+  }
 }
 
 </style>

@@ -1,11 +1,13 @@
 <template>
-  <div class="channel">
+  <div class="channel" v-if="this.$store.state.channelDetails.items">
     <img class='channel_banner'
     v-bind:src="`${this.$store.state.channelDetails.items[0].
     brandingSettings.image.bannerImageUrl}`"/>
     <img class='channel_thumbnail'
     v-bind:src="`${this.$store.state.channelDetails.items[0].
-    snippet.thumbnails.default.url}`"/>
+    snippet.thumbnails.default.url}`"
+    v-bind:height="`${this.$store.state.channelDetails.items[0].
+    snippet.thumbnails.default.height}`"/>
     <div class='channel_details'>
         <label class='result_details_title'>
         {{this.$store.state.channelDetails.items[0].

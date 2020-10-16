@@ -51,8 +51,6 @@ export default {
     this.$store.dispatch('getVideoDetails', this.$route.params.videoId);
   },
   updated() {
-    // this.$store.dispatch('getRelated', this.$route.params.videoId);
-    // this.$store.dispatch('getVideoDetails', this.$route.params.videoId);
   },
 };
 </script>
