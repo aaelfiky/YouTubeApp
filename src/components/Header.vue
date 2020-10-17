@@ -64,6 +64,7 @@ $breakpoint-desktop: 1024px;
   }
   .header_input{
     width: 55%;
+    font-size: 16px;
     background-color: transparent;
     border:none;
     color:white;

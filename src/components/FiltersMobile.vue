@@ -138,8 +138,9 @@ export default {
 .filter{
   display: flex;
   select{
-    padding:10px 20px;
+    padding: 10px 20px;
     margin: 10px;
+    font-size: 16px;
     background-color: whitesmoke;
     border-radius: 5px;
     -webkit-appearance: none;
