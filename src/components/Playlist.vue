@@ -6,9 +6,11 @@
     ref="youtube"></youtube>
     <div class='video_details'>
       <h2 class='video_details_title' v-if="!this.newDetails">
-      {{this.$store.state.playlist.items[0].snippet.title}} </h2>
+        {{this.$store.state.playlist.items[0].snippet.title}}
+      </h2>
       <h2 class='video_details_title' v-else-if="this.$store.state.videoDetails.items">
-      {{this.$store.state.videoDetails.items[0].snippet.title}}  </h2>
+        {{this.$store.state.videoDetails.items[0].snippet.title}}
+      </h2>
       <div class='video_stats'>
         <label class='views' v-if="this.$store.state.videoDetails.items">
           {{this.$store.state.videoDetails.items[0].statistics.viewCount}} views •
@@ -64,7 +66,9 @@ export default {
     },
   },
   mounted() {
-    // this.$store.dispatch('getPlaylist', this.playlistId);
+    if (this.$store.state.playlist.items.length > 0) {
+      this.$store.dispatch('getVideoDetails', this.$store.state.playlist.items[0].snippet.resourceId.videoId);
+    }
   },
   updated() {
   },

@@ -118,12 +118,12 @@ export default {
         text-decoration: none;
         font-family: verdana;
         color: grey;
+        margin: 2px 0;
       }
       .result_details_title{
         font-size: 14px;
         font-weight: lighter;
         color: black;
-        margin-bottom: 10px;
       }
       .result_details_channel{
         font-size: 12px;
@@ -159,6 +159,9 @@ $breakpoint-desktop: 1024px;
     }
     .result_details{
       flex:2;
+      > *{
+        margin: 4px 0;
+      }
       .result_details_title{
         font-size: 18px;
       }

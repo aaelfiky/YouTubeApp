@@ -118,7 +118,7 @@ $breakpoint-desktop: 1024px;
         border: 1px solid lightgrey;
     }
     .header_button{
-        padding: 18px 18px;
+        padding: 19px 18px;
         background-size: 15px auto;
         background-color: #d4d4d4;
         background-image: url('../assets/search.png');
