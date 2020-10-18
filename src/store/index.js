@@ -74,7 +74,7 @@ export default new Vuex.Store({
       dispatch('getVideoDetails', value);
       commit('SET_LOADING_STATUS', 'loading');
     },
-    getPlaylist({ commit }, playlistId) {
+    getPlaylist({ commit, dispatch }, playlistId) {
       commit('SET_LOADING_STATUS', 'loading');
       const myRequest = new Request(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=15&playlistId=${playlistId}&key=AIzaSyAWm461T0Fm1mJ20mwleRbmj4DQlosDaG4`);
       fetch(myRequest)
@@ -83,6 +83,7 @@ export default new Vuex.Store({
           commit('SET_LOADING_STATUS', 'notLoading');
           commit('SET_PLAY', true);
           commit('SET_PLAYLIST', data);
+          dispatch('setVideoID', data.items[0].snippet.resourceId.videoId);
         }).catch((error) => { console.log(error); });
     },
     getChannelDetails({ commit }, channelId) {

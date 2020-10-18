@@ -77,7 +77,6 @@ export default {
   mounted() {
     if (this.route === 'search-results') {
       this.getResults(this.search);
-      console.log(this.$store.getters.getSearchResults.kind);
     }
   },
   watch: {

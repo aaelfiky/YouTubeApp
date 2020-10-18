@@ -1,9 +1,20 @@
 <template>
   <div class="video">
-    <youtube v-if="isMobile()" :video-id="this.$store.state.videoId"
-    width="100%" height="300px" ref="youtube"></youtube>
-    <youtube v-else :video-id="this.$store.state.videoId" width="100%" height="500px"
-    ref="youtube"></youtube>
+    <div v-if='this.$store.state.videoId'>
+      <youtube v-if="isMobile()" :video-id="this.$store.state.videoId"
+      width="100%" height="300px" ref="youtube"></youtube>
+      <youtube v-else :video-id="this.$store.state.videoId" width="100%" height="500px"
+      ref="youtube"></youtube>
+    </div>
+    <div v-else-if='this.$store.state.playlist.items &&
+      this.$store.state.playlist.items[0].snippet.resourceId.videoId'>
+      <youtube v-if="isMobile()"
+      :video-id="this.$store.state.playlist.items[0].snippet.resourceId.videoId"
+      width="100%" height="300px" ref="youtube"></youtube>
+      <youtube v-else :video-id="
+      this.$store.state.playlist.items[0].snippet.resourceId.videoId" width="100%" height="500px"
+      ref="youtube"></youtube>
+    </div>
     <div class='video_details'>
       <h2 class='video_details_title' v-if="!this.newDetails">
         {{this.$store.state.playlist.items[0].snippet.title}}
@@ -55,7 +66,7 @@ export default {
     image: String,
     title: String,
     channel: String,
-    videoId: String,
+    // videoId: String,
   },
   computed: mapState(['videoId']),
   watch: {
@@ -66,7 +77,7 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.state.playlist.items.length > 0) {
+    if (this.$store.state.playlist.items && this.$store.state.playlist.items.length > 0) {
       this.$store.dispatch('getVideoDetails', this.$store.state.playlist.items[0].snippet.resourceId.videoId);
     }
   },
